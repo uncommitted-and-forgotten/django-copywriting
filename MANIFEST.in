@@ -1,0 +1,9 @@
+include AUTHORS
+include LICENSE
+include DESCRIPTION
+include CHANGELOG.txt
+include README.md
+graft copywriting
+global-exclude *.orig *.pyc *.log *.swp
+prune copywriting/tests/coverage
+prune copywriting/.ropeproject

@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load blogtags %}
+
+{% block main_content %}
+
+<h1>Blog</h1>
+
+{% if tag %}
+<p style="color: #ff0000;">
+    There are {% if articles %}{{ articles|length }} {% else %}no {% endif %}Articles published under the Tag <strong>'{{ tag }}'</strong>
+</p>
+{% endif %}
+
+{% if user.is_authenticated %}
+Author Options
+<ul>
+    <li><a href="/admin/copywriting/article/add/">new Article</a></li>
+    <li><a href="/admin/copywriting/article/">all Articles</a></li>
+</ul>
+{% endif %}
+
+Archive
+<ul>
+{% for year in yearCount %}
+    <li><a href="/blog/{{ year.0 }}">{{ year.0 }} | {{ year.1 }} Artikel</a></li>
+{% endfor %}
+</ul>
+
+All Tags
+<ul>
+{% for tag in ""|get_tags %}
+    <li><a href="/blog/tag/{{ tag.name }}/">{{ tag.name }}</a></li>
+{% endfor %}
+</ul>
+
+{% if articles %}
+{% for article in articles %}
+<a href="{{ article.get_absolute_url }}"><h2>{{ article.title }}</h2></a>
+
+{% if article.title_image %}
+<img src="{{ article.title_image.image.url }}">
+{% endif %}
+
+<h4>{{ article.pubDate|date:"d.n.Y" }} | {% for tag in article.tags.all %}<a href="/blog/tag/{{ tag }}/">{{ tag }}</a>{% if forloop.first %}{% else %}, {% endif %}{% endfor %}</h4>
+
+<p><strong>{{ article.desc }}</strong></p>
+{% endfor %}
+
+{% else %}
+<h2>
+    No Articles found
+</h2>
+{% endif %}
+
+{% endblock %}

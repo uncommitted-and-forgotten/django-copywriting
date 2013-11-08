@@ -55,8 +55,28 @@ Don't forget to migrate your database
 Usage
 -----
 
-TODO: Describe usage or point to docs. Also describe available settings and
-templatetags.
+TODO:
+- Describe usage or point to docs. Also describe available settings and templatetags.
+- Add dependencies
+- Better Installation Guide
+
+Set the FEED_SETTINGS in your projects settings.py file, here is an example:
+
+.. code-block:: python
+
+    FEED_SETTINGS = {
+        'title': "My awesome Blog",
+        'link': "/blog/",
+        'description': "Don't miss any of my new posts",
+        'author_email': "me@domain.ch",
+        'author_name': "Scrooge McDuck",
+        'author_link': "https://www.domain.ch/",
+        'feed_url': "https://www.domain.ch/blog/feed/",
+        'categories': [
+            'DuckTales',
+            'Daisy Duck',
+            ]
+    }
 
 
 Contribute

@@ -27,4 +27,4 @@ class blogFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        return item.content_en
+        return item.content

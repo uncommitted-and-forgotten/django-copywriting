@@ -16,7 +16,6 @@ def getLatestArticles(amount=5):
 
     return articles
 
-# TODO: make work with new author model (contentype, id)
 def getLatestArticlesByAuthor(authorModel, authorId, amount=5, toExclude=None):
     """
     """

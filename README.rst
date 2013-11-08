@@ -56,6 +56,7 @@ Usage
 -----
 
 TODO:
+
 - Describe usage or point to docs. Also describe available settings and templatetags.
 - Add dependencies
 - Better Installation Guide

@@ -1,4 +1,5 @@
 === (ongoing) ===
+- Added Wordcount
 - Initial commit
 
 

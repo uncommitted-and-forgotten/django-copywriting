@@ -8,6 +8,8 @@ from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
+from django.utils.html import strip_tags 
+
 # from django.contrib.comments.models import Comment
 
 from transmeta import TransMeta
@@ -73,11 +75,18 @@ class Article(models.Model):
     # def get_tags(self):
     #     return Tag.objects.get_for_object(self)
 
-
+    
+    def countWords(self):
+        ''' 
+        '''
+        plain = strip_tags(self.content) 
+        return len(plain.split(' '))
+        
+        
     def __unicode__(self):
         """
         """
-        return self.slug
+        return "%s (%i words)" % (self.slug, self.countWords())
 
 
     def get_absolute_url(self):

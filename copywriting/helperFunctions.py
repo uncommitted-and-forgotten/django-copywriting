@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from copywriting.models import Article
+from .models import Article
 
 
 def getLatestArticles(amount=5):

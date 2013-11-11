@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib.syndication.views import Feed
 from django.conf import settings
-from copywriting.helperFunctions import getLatestArticles
+from .helperFunctions import getLatestArticles
 import logging
 
 logger = logging.getLogger(__name__)

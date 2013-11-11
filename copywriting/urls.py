@@ -1,5 +1,5 @@
 from django.conf.urls.defaults import *
-from copywriting.feed import blogFeed
+from .feed import blogFeed
 
 urlpatterns = patterns('copywriting',
     (r'^feed\.rss$',                                    blogFeed()),

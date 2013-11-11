@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from copywriting.models import *
+from .models import *
 from transmeta import canonical_fieldname
 
 

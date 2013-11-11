@@ -5,8 +5,11 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.shortcuts import get_object_or_404
 
-from copywriting.models import Article, Tag
-from copywriting.helperFunctions import getLatestArticles, getArticlesByDate, getYearCount, getLatestArticlesByAuthor
+from .models import Article, Tag
+from .helperFunctions import getLatestArticles
+from .helperFunctions import getArticlesByDate 
+from .helperFunctions import getYearCount
+from .helperFunctions import getLatestArticlesByAuthor
 
 
 def listArticles(request):

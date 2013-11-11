@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib.sitemaps import Sitemap
-from copywriting.models import Article
+from .models import Article
 
 
 class BlogSitemap(Sitemap):

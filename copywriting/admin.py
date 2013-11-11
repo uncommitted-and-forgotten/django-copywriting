@@ -23,8 +23,8 @@ class ArticleAdmin(admin.ModelAdmin):
     date_hierarchy = 'pubDate'
     
     def number_of_words(self):
-            return u'%s' %  self.countWords()
-        number_of_words.admin_order_field = 'words__count'
+        return u'%s' %  self.countWords()
+    number_of_words.admin_order_field = 'words__count'
         
     # prepopulated_fields = {'slug':('title',),}
 

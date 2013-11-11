@@ -24,7 +24,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     # prepopulated_fields = {'slug':('title',),}
 
-    list_display = ('title', 'status', 'pubDate', 'addedDate', 'updatedDate')
+    list_display = ('title', 'countWords', 'status', 'pubDate', 'addedDate', 'updatedDate')
     readonly_fields = ('addedDate', 'updatedDate', 'pubDate')
 
     search_fields = ['title', 'slug', 'desc']

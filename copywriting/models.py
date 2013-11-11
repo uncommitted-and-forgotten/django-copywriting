@@ -76,7 +76,7 @@ class Article(models.Model):
     #     return Tag.objects.get_for_object(self)
 
     
-    def countWords(self):
+    def number_of_words(self):
         ''' 
         '''
         plain = strip_tags(self.content) 

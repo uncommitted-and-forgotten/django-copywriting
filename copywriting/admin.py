@@ -24,7 +24,6 @@ class ArticleAdmin(admin.ModelAdmin):
     
     def number_of_words(self, obj):
         return u'%s' %  obj.countWords()
-    number_of_words.admin_order_field = 'words__count'
         
     # prepopulated_fields = {'slug':('title',),}
 

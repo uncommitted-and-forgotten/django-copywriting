@@ -21,10 +21,14 @@ class ArticleAdmin(admin.ModelAdmin):
     ]
 
     date_hierarchy = 'pubDate'
-
+    
+    def number_of_words(self):
+            return u'%s' %  self.countWords()
+        number_of_words.admin_order_field = 'words__count'
+        
     # prepopulated_fields = {'slug':('title',),}
 
-    list_display = ('title', 'countWords', 'status', 'pubDate', 'addedDate', 'updatedDate')
+    list_display = ('title', 'number_of_words', 'status', 'pubDate', 'addedDate', 'updatedDate')
     readonly_fields = ('addedDate', 'updatedDate', 'pubDate')
 
     search_fields = ['title', 'slug', 'desc']

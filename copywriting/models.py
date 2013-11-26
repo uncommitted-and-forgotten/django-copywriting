@@ -86,7 +86,7 @@ class Article(models.Model):
     def __unicode__(self):
         """
         """
-        return "%s (%i words)" % (self.slug, self.countWords())
+        return "%s (%i words)" % (self.slug, self.number_of_words())
 
 
     def get_absolute_url(self):

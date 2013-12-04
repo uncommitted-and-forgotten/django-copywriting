@@ -25,6 +25,7 @@ class Tag(models.Model):
     def __unicode__(self):
         return self.name
 
+
 class Article(models.Model):
     """
     """

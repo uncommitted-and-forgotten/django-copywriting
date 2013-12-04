@@ -95,6 +95,7 @@ class Article(models.Model):
         """
         return "/blog/%s/" % self.slug
 
+
     def save(self, force_insert=False, force_update=False):
         super(Article, self).save(force_insert, force_update)
         try:

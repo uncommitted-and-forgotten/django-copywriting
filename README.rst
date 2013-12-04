@@ -1,7 +1,20 @@
 Django Copywriting
 ============
 
-Copywriting is the act of writing copy (text) for the purpose of advertising or marketing a product, business, person, opinion or idea. The addressee (reader, listener, etc.) of the copy is meant to be persuaded to buy the product advertised for, or subscribe to the viewpoint the text shares.
+Copywriting is the act of writing copy (text) for the purpose of advertising or marketing a product, business, person, 
+opinion or idea. The addressee (reader, listener, etc.) of the copy is meant to be persuaded to buy the product advertised 
+for, or subscribe to the viewpoint the text shares.
+
+Features
+--------
+
+* Generic Author Model support
+* Articles
+* Automatically generated Feed 
+* Tags / search by tags
+* Ping Google on publish
+* Workflow (Draft -> Review -> Ready to Publish -> Published)
+*
 
 Installation
 ------------
@@ -78,6 +91,13 @@ Set the FEED_SETTINGS in your projects settings.py file, here is an example:
             'Daisy Duck',
             ]
     }
+
+Known issues, TODOs and planned features
+----------------------------------------
+
+* ImageBucketObject is missing! Issue #5
+
+
 
 
 Contribute

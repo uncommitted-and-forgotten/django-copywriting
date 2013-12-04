@@ -42,8 +42,14 @@ All Tags
 <img src="{{ article.title_image.image.url }}">
 {% endif %}
 
-<h4>{{ article.pubDate|date:"d.n.Y" }} | {% for tag in article.tags.all %}<a href="/blog/tag/{{ tag }}/">{{ tag }}</a>{% if forloop.first %}{% else %}, {% endif %}{% endfor %}</h4>
-
+<h4>{{ article.pubDate|date:"d.n.Y" }} 
+	
+    {% for tag in article.tags.all %}
+	{% if forloop.first %}  | {% else %}, {% endif %}
+    <a href="/blog/tag/{{ tag }}/">{{ tag }}</a>
+    {% endfor %}
+	
+	
 <p><strong>{{ article.desc }}</strong></p>
 {% endfor %}
 

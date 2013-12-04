@@ -4,6 +4,8 @@ from .feed import blogFeed
 urlpatterns = patterns('copywriting',
     (r'^feed\.rss$', blogFeed()),
     (r'^feed/$', blogFeed()),
+    (r'^author/(?P<author>\w[^/]+)$', 'views.listArticlesByAuthor'),
+    (r'^author/(?P<author>\w[^/]+)/$', 'views.listArticlesByAuthor'),
     (r'^tag/(?P<in_tag>\w[^/]+)$', 'views.withTag'),
     (r'^tag/(?P<in_tag>\w[^/]+)/$', 'views.withTag'),
     # (r'^(?P<year>\d+)/(?P<month>\d+)/(?P<day>\d+)/$', 'views.listBlogEntriesByYearMonthDay'),

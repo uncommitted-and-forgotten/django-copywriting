@@ -83,21 +83,4 @@ Set the FEED_SETTINGS in your projects settings.py file, here is an example:
 Contribute
 ----------
 
-If you want to contribute to this project, please perform the following steps
-
-.. code-block:: bash
-
-    # Fork this repository
-    # Clone your fork
-    mkvirtualenv -p python2.7 django-copywriting
-    make develop
-
-    git co -b feature_branch master
-    # Implement your feature and tests
-    git add . && git commit
-    git push -u origin feature_branch
-    # Send us a pull request for your feature branch
-
-.. image:: https://d2weczhvl823v0.cloudfront.net/philippeowagner/django-history/trend.png
-   :alt: Bitdeli badge
-   :target: https://bitdeli.com/free
+If you want to contribute to this project, just send us your pull requests. Thanks.

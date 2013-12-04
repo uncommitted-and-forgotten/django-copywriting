@@ -4,13 +4,17 @@ import urllib
 
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 
-from .models import Article, Tag
+from .models import Article
+from .models import Tag
 from .helperFunctions import getLatestArticles
 from .helperFunctions import getArticlesByDate 
 from .helperFunctions import getYearCount
 from .helperFunctions import getLatestArticlesByAuthor
+
+
 
 
 def listArticles(request):
@@ -21,7 +25,18 @@ def listArticles(request):
                                                                     'yearCount': getYearCount(),
                                                                    }, context_instance=RequestContext(request))
 
+def listArticlesByAuthor(request, author):
+    '''
+    author is the username of the user in the author model.
+    '''
+    authorProfile = AuthorProfile.objects.get(user__username=author)
+    articles = Article.objects.filter(authorProfileId=authorProfile.id, ContentType.objects.get_for_model(author))
+    return render_to_response('copywriting/copywritingIndex.html', {'articles': articles,
+                                                                    'yearCount': getYearCount(),
+                                                                    'authorProfile': authorProfile,
+                                                                   }, context_instance=RequestContext(request))
 
+    
 def listArticlesByYear(request, requestYear):
     """
     """

@@ -7,8 +7,8 @@ from django.template import RequestContext
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
 
-from .models import Article
-from .models import Tag
+from .models import *
+
 from .helperFunctions import getLatestArticles
 from .helperFunctions import getArticlesByDate 
 from .helperFunctions import getYearCount
@@ -31,7 +31,7 @@ def listArticlesByAuthor(request, author):
     '''
     authorProfile = AuthorProfile.objects.get(user__username=author)
     articles = Article.objects.filter(authorProfileId=authorProfile.id, 
-        authorProfileModel=ContentType.objects.get_for_model(author))
+            authorProfileModel=ContentType.objects.get_for_model(author))
     return render_to_response('copywriting/copywritingIndex.html', {'articles': articles,
                                                                     'yearCount': getYearCount(),
                                                                     'authorProfile': authorProfile,

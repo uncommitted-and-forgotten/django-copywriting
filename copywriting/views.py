@@ -31,7 +31,7 @@ def listArticlesByAuthor(request, author):
     '''
     authorProfile = AuthorProfile.objects.get(user__username=author)
     articles = Article.objects.filter(authorProfileId=authorProfile.id, 
-            authorProfileModel=ContentType.objects.get_for_model(author))
+            authorProfileModel=ContentType.objects.get_for_model(authorProfile))
     return render_to_response('copywriting/copywritingIndex.html', {'articles': articles,
                                                                     'yearCount': getYearCount(),
                                                                     'authorProfile': authorProfile,

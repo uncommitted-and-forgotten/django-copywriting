@@ -26,12 +26,11 @@ def listArticles(request):
                                                                    }, context_instance=RequestContext(request))
 
 def listArticlesByAuthor(request, author):
-    '''
+    """
     author is the username of the user in the author model.
-    '''
+    """
     authorProfile = AuthorProfile.objects.get(user__username=author)
-    articles = Article.objects.filter(authorProfileId=authorProfile.id, 
-            authorProfileModel=ContentType.objects.get_for_model(authorProfile))
+    articles = getLatestArticlesByAuthor(ContentType.objects.get_for_model(authorProfile), authorProfile.id, 100)
     return render_to_response('copywriting/copywritingIndex.html', {'articles': articles,
                                                                     'yearCount': getYearCount(),
                                                                     'authorProfile': authorProfile,
@@ -68,7 +67,7 @@ def listArticlesByYearMonthDay(request, requestYear, requestMonth, requestDay):
 def withTag(request, in_tag):
     lTag = urllib.unquote(in_tag)
     tags = Tag.objects.filter(name=lTag)
-    articles = Article.objects.filter(tags__in=tags, status=Article.PUBLISHED, pubDate__lte=datetime.datetime.now()).order_by('pubDate')
+    articles = Article.objects.filter(tags__in=tags, status=Article.PUBLISHED, pubDate__lte=datetime.datetime.now()).order_by('-pubDate')
 
     return render_to_response("copywriting/copywritingIndex.html", {'tag': in_tag,
                                                                     'articles': articles,

@@ -74,7 +74,9 @@ Signals
 -------
 
 You can catch a signal when a article changes to "read to publish". Here is an example:
- 
+
+.. code-block:: python
+
 	from django.dispatch import receiver
 	from signals import ready_to_publish
 	

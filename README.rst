@@ -96,6 +96,8 @@ Known issues, TODOs and planned features
 ----------------------------------------
 
 * ImageBucketObject is missing! Issue #5
+* ImageCropping dependencies
+
 
 
 

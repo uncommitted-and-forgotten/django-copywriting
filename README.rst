@@ -68,6 +68,20 @@ Don't forget to migrate your database
 Usage
 -----
 
+
+
+Signals
+-------
+
+You can catch a signal when a article changes to "read to publish". Here is an example:
+ 
+	from django.dispatch import receiver
+	from signals import ready_to_publish
+	
+    @receiver(ready_to_publish)
+    def notify_publisher(sender, **kwargs):
+		print "New article with ID=%s" % kwargs['articleID']
+		
 TODO:
 
 - Describe usage or point to docs. Also describe available settings and templatetags.

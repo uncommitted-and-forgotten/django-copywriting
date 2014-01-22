@@ -16,6 +16,8 @@ from transmeta import TransMeta
 # from tagging.models import Tag
 
 from arimagebucket.models import *
+from django.dispatch import receiver
+from signals import ready_to_publish
 
 
 
@@ -98,6 +100,8 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False):
         super(Article, self).save(force_insert, force_update)
+        if self.status == self.READY_TO_PUBLISH:
+            ready_to_publish.send(sender=None, articleID = self.id)
         try:
             if getattr(settings, 'DEBUG', False) is False:
                 ping_google()

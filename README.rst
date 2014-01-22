@@ -23,7 +23,7 @@ To get the latest stable release from PyPi
 
 .. code-block:: bash
 
-    pip install django-copywriting
+    pip install django-copywriting (not pushed yet! use latest commit from GitHub)
 
 To get the latest commit from GitHub
 
@@ -55,7 +55,7 @@ Before your tags/filters are available in your templates, load them by using
 
 .. code-block:: html
 
-	{% load copywriting_tags %}
+	{% load blogtags %}
 
 
 Don't forget to migrate your database
@@ -110,6 +110,8 @@ Known issues, TODOs and planned features
 ----------------------------------------
 
 * ImageBucketObject is missing! Issue #5
+* ImageCropping dependencies
+
 
 
 

@@ -55,7 +55,7 @@ Before your tags/filters are available in your templates, load them by using
 
 .. code-block:: html
 
-	{% load copywriting_tags %}
+	{% load blogtags %}
 
 
 Don't forget to migrate your database

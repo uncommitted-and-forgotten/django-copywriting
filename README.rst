@@ -23,7 +23,7 @@ To get the latest stable release from PyPi
 
 .. code-block:: bash
 
-    pip install django-copywriting
+    pip install django-copywriting (not pushed yet! use latest commit from GitHub)
 
 To get the latest commit from GitHub
 

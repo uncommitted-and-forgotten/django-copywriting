@@ -17,7 +17,7 @@ from transmeta import TransMeta
 
 from arimagebucket.models import *
 from django.dispatch import receiver
-from signals import ready_to_publish
+from signals import ready_to_publish, ready_to_review
 
 
 
@@ -33,10 +33,10 @@ class Article(models.Model):
     """
     __metaclass__ = TransMeta
     
-    DRAFT = 0
     PUBLISHED = 1 # Compatibility mode
     READY_TO_PUBLISH = 2
     READY_TO_REVIEW = 3
+    DRAFT = 0
     
     STATE_OPTIONS = ((DRAFT, _('Draft')),
                      (READY_TO_REVIEW, _('Ready To Review')),
@@ -100,8 +100,11 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False):
         super(Article, self).save(force_insert, force_update)
+        if self.status == self.READY_TO_REVIEW:
+            ready_to_review.send(sender=None, articleID = self.id)
         if self.status == self.READY_TO_PUBLISH:
             ready_to_publish.send(sender=None, articleID = self.id)
+        
         try:
             if getattr(settings, 'DEBUG', False) is False:
                 ping_google()

@@ -99,11 +99,23 @@ class Article(models.Model):
 
 
     def save(self, force_insert=False, force_update=False):
+        isFirstSave = False
+        if self.pk is not None:
+            orig = Article.objects.get(pk=self.pk)
+            if orig.status != self.status:
+                if self.status == self.READY_TO_REVIEW:
+                    ready_to_review.send(sender=None, articleID = self.id)
+                if self.status == self.READY_TO_PUBLISH:
+                    ready_to_publish.send(sender=None, articleID = self.id)
+        else:
+            isFirstSave = True
+                     
         super(Article, self).save(force_insert, force_update)
-        if self.status == self.READY_TO_REVIEW:
-            ready_to_review.send(sender=None, articleID = self.id)
-        if self.status == self.READY_TO_PUBLISH:
-            ready_to_publish.send(sender=None, articleID = self.id)
+        if isFirstSave is True:
+            if self.status == self.READY_TO_REVIEW:
+                ready_to_review.send(sender=None, articleID = self.id)
+            if self.status == self.READY_TO_PUBLISH:
+                ready_to_publish.send(sender=None, articleID = self.id)  
         
         try:
             if getattr(settings, 'DEBUG', False) is False:

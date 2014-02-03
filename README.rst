@@ -69,6 +69,24 @@ Usage
 -----
 
 
+Sitemaps
+--------
+
+Add the following lines to your ``urls.py``
+
+	
+.. code-block:: python
+
+	from copywriting.sitemaps import BlogSitemap
+	sitemaps = {
+	    'blog': BlogSitemap,
+	}
+	
+	# in patterns... 
+	
+	url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
+
+
 
 Signals
 -------

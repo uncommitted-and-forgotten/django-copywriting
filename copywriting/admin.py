@@ -30,7 +30,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
     list_display = ('title', 'number_of_words', 'status', 'pubDate', 'addedDate', 'updatedDate')
     readonly_fields = ('addedDate', 'updatedDate',)
-
+    list_filter = ('status', 'authorProfileId', )
     search_fields = ['title', 'slug', 'desc']
 
 

@@ -87,6 +87,7 @@ Add the following lines to your ``urls.py``
 	url(r'^sitemap\.xml$', 'django.contrib.sitemaps.views.sitemap', {'sitemaps': sitemaps}),
 
 
+Make sure that ``'django.contrib.sitemaps'`` is in your ``INSTALLED_APPS``.
 
 Signals
 -------

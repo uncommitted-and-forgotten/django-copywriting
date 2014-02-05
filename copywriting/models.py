@@ -19,7 +19,7 @@ from transmeta import TransMeta
 
 from arimagebucket.models import *
 from django.dispatch import receiver
-from signals import ready_to_publish, ready_to_review
+from .signals import ready_to_publish, ready_to_review
 
 
 
@@ -102,32 +102,38 @@ class Article(models.Model):
 
     def save(self, force_insert=False, force_update=False):
         try:
+            f = open("/tmp/arteria-article.log", 'a')
             isFirstSave = False
             if self.pk is not None:
+                f.write("pk is not None\n")
                 orig = Article.objects.get(pk=self.pk)
                 if orig.status != self.status:
                     if self.status == self.READY_TO_REVIEW:
+                        f.write("READY_TO_REVIEW\n")
                         ready_to_review.send(sender=None, articleID = self.id)
                     if self.status == self.READY_TO_PUBLISH:
                         ready_to_publish.send(sender=None, articleID = self.id)
+                        f.write("READY_TO_PUBLISH\n")
             else:
+                f.write("pk is None\n")
                 isFirstSave = True
                      
             super(Article, self).save(force_insert, force_update)
             if isFirstSave is True:
                 if self.status == self.READY_TO_REVIEW:
                     ready_to_review.send(sender=None, articleID = self.id)
+                    f.write("READY_TO_REVIEW\n")
                 if self.status == self.READY_TO_PUBLISH:
                     ready_to_publish.send(sender=None, articleID = self.id)  
-        
+                    f.write("READY_TO_PUBLISH\n")
             try:
                 if getattr(settings, 'DEBUG', False) is False:
                     ping_google()
             except Exception:
                 pass
-        except:
-            f = open("/tmp/arteria-article.log", 'a')
-            traceback.print_exc(file=f)
+        except Exception, ex:
+            f.write(str(ex)+"\n")
+        f.flush()
 
 
 class AuthorProfile(models.Model):

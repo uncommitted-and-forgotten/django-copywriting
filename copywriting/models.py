@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 import datetime
+import traceback 
+import sys
 
 from django.db import models
 from django.contrib.sitemaps import ping_google
@@ -99,29 +101,33 @@ class Article(models.Model):
 
 
     def save(self, force_insert=False, force_update=False):
-        isFirstSave = False
-        if self.pk is not None:
-            orig = Article.objects.get(pk=self.pk)
-            if orig.status != self.status:
+        try:
+            isFirstSave = False
+            if self.pk is not None:
+                orig = Article.objects.get(pk=self.pk)
+                if orig.status != self.status:
+                    if self.status == self.READY_TO_REVIEW:
+                        ready_to_review.send(sender=None, articleID = self.id)
+                    if self.status == self.READY_TO_PUBLISH:
+                        ready_to_publish.send(sender=None, articleID = self.id)
+            else:
+                isFirstSave = True
+                     
+            super(Article, self).save(force_insert, force_update)
+            if isFirstSave is True:
                 if self.status == self.READY_TO_REVIEW:
                     ready_to_review.send(sender=None, articleID = self.id)
                 if self.status == self.READY_TO_PUBLISH:
-                    ready_to_publish.send(sender=None, articleID = self.id)
-        else:
-            isFirstSave = True
-                     
-        super(Article, self).save(force_insert, force_update)
-        if isFirstSave is True:
-            if self.status == self.READY_TO_REVIEW:
-                ready_to_review.send(sender=None, articleID = self.id)
-            if self.status == self.READY_TO_PUBLISH:
-                ready_to_publish.send(sender=None, articleID = self.id)  
+                    ready_to_publish.send(sender=None, articleID = self.id)  
         
-        try:
-            if getattr(settings, 'DEBUG', False) is False:
-                ping_google()
-        except Exception:
-            pass
+            try:
+                if getattr(settings, 'DEBUG', False) is False:
+                    ping_google()
+            except Exception:
+                pass
+        except:
+            f = open("/tmp/arteria-article.log", 'a')
+            traceback.print_exc(file=f)
 
 
 class AuthorProfile(models.Model):

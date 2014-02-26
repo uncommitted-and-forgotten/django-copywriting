@@ -5,6 +5,7 @@ from .models import *
 from transmeta import canonical_fieldname
 
 
+
 class ArticleAdmin(admin.ModelAdmin):
     def formfield_for_dbfield(self, db_field, **kwargs):
         field = super(ArticleAdmin, self).formfield_for_dbfield(db_field, **kwargs)
@@ -32,8 +33,15 @@ class ArticleAdmin(admin.ModelAdmin):
     readonly_fields = ('addedDate', 'updatedDate',)
     list_filter = ('status', 'authorProfileId', )
     search_fields = ['title', 'slug', 'desc']
-
-
+    
+    if "redactormedia" in settings.INSTALLED_APPS:
+        from redactormedia.widgets import RedactorWithMediaEditor, AdminRedactorWithMediaEditor
+        from django.db import models
+    
+        formfield_overrides = {
+            models.TextField: {'widget': AdminRedactorWithMediaEditor},
+        }
+        
 admin.site.register(Article, ArticleAdmin)
 admin.site.register(Tag)
 admin.site.register(Comment)

@@ -43,7 +43,7 @@ More Articles from {{ article.author.get_full_name }}
 
 Article published under following Tags
 <ul>
-{% for tag in article.get_tags %}
+{% for tag in article.tags.all %}
 <li><a href="/blogtags/{{tag}}/">{{ tag }}</a></li>
 {% endfor %}
 </ul>

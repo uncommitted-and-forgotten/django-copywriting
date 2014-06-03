@@ -9,17 +9,15 @@ def getLatestArticlesByTag(amount=5, tagString=None):
     
     """
     try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')[:amount]
+        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')
     except:
         articles = None
     if articles:
         tags = tagString.split(",")
     for tag in tags:
         articles = articles.filter(tags__name=tag)
-        
-    if amount == 1 and articles:
-        articles = articles[0]
-    return articles
+ 
+    return articles[:amount]
     
     
     

@@ -14,7 +14,7 @@ def get_latest_slug(request):
 
 
 @register.assignment_tag
-def get_latest_articles_by_tag(tagString, amount=5):
+def get_latest_articles_by_tag( *args, **kwargs):
     """
     Usage:
     
@@ -25,8 +25,8 @@ def get_latest_articles_by_tag(tagString, amount=5):
     {% endfor %}
     
     """
-    amount = kwargs['amount']
-    tagString = kwargs['tagString']
+    amount = kwargs.get('amount',5)
+    tagString = kwargs.get('tagString','')
     return getLatestArticlesByTag(amount, tagString=tagString)
 
 @register.filter

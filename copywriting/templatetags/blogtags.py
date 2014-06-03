@@ -13,16 +13,20 @@ def get_latest_slug(request):
     return latest.slug
 
 
-@register.filter
+@register.assignment_tag
 def get_latest_articles_by_tag(tagString, amount=5):
     """
     Usage:
     
-    {% for article in "Technology,Biology,Match"|get_latest_articles_by_tag:10 %}
+    {% get_latest_articles_by_tag tagString="Technology,Biology,Match" amount=5 as articles %}
+    
+    {% for article in articles %}
         {{ article.title }}
     {% endfor %}
     
     """
+    amount = kwargs['amount']
+    tagString = kwargs['tagString']
     return getLatestArticlesByTag(amount, tagString=tagString)
 
 @register.filter

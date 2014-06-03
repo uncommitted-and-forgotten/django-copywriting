@@ -2,9 +2,31 @@
 from datetime import datetime
 from .models import Article
 
+def getLatestArticlesByTag(amount=5, tagString=None):
+    """
+    Returns the latest n (=amount) published Articles that has all tags.
+    Tags is tagString exploded using ",".
+    
+    """
+    try:
+        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')[:amount]
+    except:
+        articles = None
+    if articles:
+        tags = tagString.split(",")
+    for tag in tags:
+        articles = articles.filter(tags__name=tag)
+        
+    if amount == 1 and articles:
+        articles = articles[0]
+    return articles
+    
+    
+    
 
 def getLatestArticles(amount=5):
-    """returs the latest n published Articles
+    """
+    Returns the latest n published Articles
     """
     try:
         articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')[:amount]
@@ -13,7 +35,6 @@ def getLatestArticles(amount=5):
 
     if amount == 1 and articles:
         articles = articles[0]
-
     return articles
 
 def getLatestArticlesByAuthor(authorModel, authorId, amount=5, toExclude=None):
@@ -24,8 +45,8 @@ def getLatestArticlesByAuthor(authorModel, authorId, amount=5, toExclude=None):
 
 
 def getYearCount():
-    """return a list of years an count of Articles for this year
-    like:
+    """
+    Return a list of years an count of Articles for this year like:
     yearCount = [[2012, 3],[2011, 43],[2010, 74]]"""
     years = Article.objects.dates('pubDate', 'year')
     yearCount = []

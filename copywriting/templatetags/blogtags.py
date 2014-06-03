@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import template
 from copywriting.helperFunctions import getLatestArticles
+from copywriting.helperFunctions import getLatestArticlesByTag
 from copywriting.models import Tag
 
 register = template.Library()
@@ -13,13 +14,25 @@ def get_latest_slug(request):
 
 
 @register.filter
+def get_latest_articles_by_tag(tagString, amount=5):
+    """
+    Usage:
+    
+    {% for article in "Technology,Biology,Match"|get_latest_articles_by_tag:10 %}
+        {{ article.title }}
+    {% endfor %}
+    
+    """
+    return getLatestArticlesByTag(amount, tagString=tagString)
+
+@register.filter
 def get_latest_articles(request):
     return getLatestArticles(5)
 
 
 @register.filter
 def get_tags(request):
-	return Tag.objects.all()
+    return Tag.objects.all()
 
 
 @register.simple_tag

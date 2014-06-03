@@ -12,6 +12,7 @@ def getLatestArticlesByTag(amount=5, tagString=None):
         articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')
     except:
         articles = None
+    tags = []
     if articles:
         tags = tagString.split(",")
     for tag in tags:

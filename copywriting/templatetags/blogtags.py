@@ -2,7 +2,7 @@
 from django import template
 from copywriting.helperFunctions import getLatestArticles
 from copywriting.helperFunctions import getLatestArticlesByTag
-from copywriting.models import Tag
+from copywriting.helperFunctions import getTags
 
 register = template.Library()
 
@@ -29,6 +29,7 @@ def get_latest_articles_by_tag( *args, **kwargs):
     tagString = kwargs.get('tagString','')
     return getLatestArticlesByTag(amount, tagString=tagString)
 
+
 @register.filter
 def get_latest_articles(request):
     return getLatestArticles(5)
@@ -36,7 +37,7 @@ def get_latest_articles(request):
 
 @register.filter
 def get_tags(request):
-    return Tag.objects.all()
+    return getTags()
 
 
 @register.simple_tag

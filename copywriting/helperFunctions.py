@@ -49,8 +49,7 @@ def getArticlesByAuthor(authorModel, authorId, toExclude=None):
     """
     Returns all published Articles for an author
     """
-    articles = getArticles()
-    articles.filter(authorProfileModel=authorModel, authorProfileId=authorId).exclude(slug=toExclude)
+    articles = getArticles().filter(authorProfileModel=authorModel, authorProfileId=authorId).exclude(slug=toExclude)
     
     return articles
 

@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
-from .models import Article
+from .models import Article, Tag
+
 
 def getLatestArticlesByTag(amount=5, tagString=None):
     """
@@ -20,12 +21,10 @@ def getLatestArticlesByTag(amount=5, tagString=None):
  
     return articles[:amount]
     
-    
-    
 
 def getLatestArticles(amount=5):
     """
-    Returns the latest n published Articles
+    Returns the latest n (=amount) published Articles
     """
     try:
         articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')[:amount]
@@ -36,11 +35,36 @@ def getLatestArticles(amount=5):
         articles = articles[0]
     return articles
 
+
+def getArticlesByAuthor(authorModel, authorId, toExclude=None):
+    """
+    Returns all published Articles for an author
+    """
+    articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), authorProfileModel=authorModel, authorProfileId=authorId).exclude(slug=toExclude).order_by('-pubDate')
+    return articles
+
+
 def getLatestArticlesByAuthor(authorModel, authorId, amount=5, toExclude=None):
     """
+    Returns the latest n (=amount) published Articles for an author
     """
-    articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), authorProfileModel=authorModel, authorProfileId=authorId).exclude(slug=toExclude).order_by('-pubDate')[:amount]
-    return articles
+    articles = getArticlesByAuthor(authorModel, authorId, toExclude=toExclude)
+    return articles[:amount]
+
+
+def getTagsByAuthor(authorModel, authorId):
+    """
+    Returns all Tags that an author has used in this articles
+    """
+    tags_ids = []
+
+    author_articles = getArticlesByAuthor(authorModel, authorId)
+    
+    for article in author_articles:
+        for tag in article.tags.all():
+            tags_ids.append(tag.id)
+
+    return Tag.objects.filter(id__in=tags_ids)
 
 
 def getYearCount():

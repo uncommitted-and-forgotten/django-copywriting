@@ -5,42 +5,53 @@ from .models import Article, Tag
 
 def getLatestArticlesByTag(amount=5, tagString=None):
     """
-    Returns the latest n (=amount) published Articles that has all tags.
+    Returns the latest n (=amount) published Articles that have all tags.
     Tags is tagString exploded using ",".
     
     """
-    try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')
-    except:
-        articles = None
+    articles = getArticles()
     tags = []
+    
     if articles:
         tags = tagString.split(",")
+    
     for tag in tags:
         articles = articles.filter(tags__name=tag)
  
     return articles[:amount]
     
 
+def getArticles():
+    """
+    Returns all published Articles
+    """
+    try:
+        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')
+    except:
+        articles = None
+
+    return articles
+
+
 def getLatestArticles(amount=5):
     """
     Returns the latest n (=amount) published Articles
     """
-    try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')[:amount]
-    except:
-        articles = None
-
+    articles = getArticles()
+    
     if amount == 1 and articles:
-        articles = articles[0]
-    return articles
+        return articles[0]
+    
+    return articles[:amount]
 
 
 def getArticlesByAuthor(authorModel, authorId, toExclude=None):
     """
     Returns all published Articles for an author
     """
-    articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), authorProfileModel=authorModel, authorProfileId=authorId).exclude(slug=toExclude).order_by('-pubDate')
+    articles = getArticles()
+    articles.filter(authorProfileModel=authorModel, authorProfileId=authorId).exclude(slug=toExclude)
+    
     return articles
 
 
@@ -49,7 +60,23 @@ def getLatestArticlesByAuthor(authorModel, authorId, amount=5, toExclude=None):
     Returns the latest n (=amount) published Articles for an author
     """
     articles = getArticlesByAuthor(authorModel, authorId, toExclude=toExclude)
+    
     return articles[:amount]
+
+
+def getTags():
+    """
+    Returns all Tags that are used, Tags not linked to published Articles are excluded
+    """
+    tags_ids = []
+
+    articles = getArticles()
+    
+    for article in articles:
+        for tag in article.tags.all():
+            tags_ids.append(tag.id)
+
+    return Tag.objects.filter(id__in=tags_ids)
 
 
 def getTagsByAuthor(authorModel, authorId):
@@ -76,10 +103,34 @@ def getYearCount():
 
     for year in years:
         year = int(year.year)
-        count = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), pubDate__year=year).count()
+        count = getArticles().filter(pubDate__year=year).count()
         yearCount.append([year, count])
 
     return sorted(yearCount, reverse=True)
+
+
+def getArticlesByYear(year):
+    try:
+        articles = getArticles().filter(pubDate__year=year)
+    except Exception:
+        articles = None
+    return articles
+
+
+def getArticlesByYearMonth(year, month):
+    try:
+        articles = getArticles().filter(pubDate__year=year, pubDate__month=month)
+    except Exception:
+        articles = None
+    return articles
+
+
+def getArticlesByYearMonthDay(year, month, day):
+    try:
+        articles = getArticles().filter(pubDate__year=year, pubDate__month=month, pubDate__day=day).order_by('-pubDate')
+    except Exception:
+        articles = None
+    return articles
 
 
 def getArticlesByDate(**kwargs):
@@ -94,28 +145,4 @@ def getArticlesByDate(**kwargs):
     else:
         articles = None
 
-    return articles
-
-
-def getArticlesByYear(year):
-    try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), pubDate__year=year).order_by('-pubDate')
-    except Exception:
-        articles = None
-    return articles
-
-
-def getArticlesByYearMonth(year, month):
-    try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), pubDate__year=year, pubDate__month=month).order_by('-pubDate')
-    except Exception:
-        articles = None
-    return articles
-
-
-def getArticlesByYearMonthDay(year, month, day):
-    try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now(), pubDate__year=year, pubDate__month=month, pubDate__day=day).order_by('-pubDate')
-    except Exception:
-        articles = None
     return articles

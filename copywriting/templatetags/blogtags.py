@@ -24,11 +24,14 @@ def get_latest_articles_by_tag( *args, **kwargs):
         {{ article.title }}
     {% endfor %}
     
+    Notes: If tagString is not defined or an empty string, 'getLatestArticles' will be called.
     """
     amount = kwargs.get('amount',5)
-    tagString = kwargs.get('tagString','')
-    return getLatestArticlesByTag(amount, tagString=tagString)
-
+    tagString = kwargs.get('tagString', None)
+    if tagString is None or tagString == '':
+        return getLatestArticlesByTag(amount, tagString=tagString)
+    return getLatestArticles(amount)
+ 
 
 @register.filter
 def get_latest_articles(request):

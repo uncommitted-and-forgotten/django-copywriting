@@ -29,8 +29,8 @@ def get_latest_articles_by_tag( *args, **kwargs):
     amount = kwargs.get('amount',5)
     tagString = kwargs.get('tagString', None)
     if tagString is None or tagString == '':
-        return getLatestArticlesByTag(amount, tagString=tagString)
-    return getLatestArticles(amount)
+        return getLatestArticlesByTag(amount)
+    return getLatestArticles(amount, tagString=tagString)
  
 
 @register.filter

@@ -11,7 +11,7 @@ from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from django.contrib.contenttypes import generic
 from django.utils.html import strip_tags 
-
+from django.core.urlresolvers import reverse
 # from django.contrib.comments.models import Comment
 
 from transmeta import TransMeta
@@ -97,7 +97,7 @@ class Article(models.Model):
     def get_absolute_url(self):
         """
         """
-        return "/blog/%s/" % self.slug
+        return reverse('copywriting.views.showArticle', None, [str(self.slug)])
 
 
     def save(self, force_insert=False, force_update=False):

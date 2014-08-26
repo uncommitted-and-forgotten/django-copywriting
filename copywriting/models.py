@@ -175,4 +175,6 @@ class Comment(models.Model):
 #         # Use our custom comment model instead of the built-in one.
 #         return Comment
 
-
+if 'watson' in settings.INSTALLED_APPS:
+    import watson
+    watson.register(Article)

@@ -14,7 +14,7 @@ Features
 * Tags / search by tags
 * Ping Google on publish
 * Workflow (Draft -> Review -> Ready to Publish -> Published)
-*
+* Automatically register Articles for search if https://github.com/etianen/django-watson is installed
 
 Installation
 ------------

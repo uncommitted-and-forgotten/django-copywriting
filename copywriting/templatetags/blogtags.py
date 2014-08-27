@@ -3,6 +3,7 @@ from django import template
 from copywriting.helperFunctions import getLatestArticles
 from copywriting.helperFunctions import getLatestArticlesByTag
 from copywriting.helperFunctions import getTags
+from copywriting.helperFunctions import getArticles
 
 register = template.Library()
 

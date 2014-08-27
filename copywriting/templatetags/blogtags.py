@@ -3,6 +3,7 @@ from django import template
 from copywriting.helperFunctions import getLatestArticles
 from copywriting.helperFunctions import getLatestArticlesByTag
 from copywriting.helperFunctions import getTags
+from copywriting.helperFunctions import getArticles
 
 register = template.Library()
 
@@ -69,3 +70,47 @@ def get_gravatar_url_by_email(email, size=48):
     })
 
     return url
+
+@register.filter
+def next(current_Articel):
+    articles = getArticles()
+    newer_articles = []
+
+    for article in articles:
+        if article.pubDate < current_Articel.pubDate:
+            newer_articles.append(article)
+
+    if newer_articles == []:
+        return ''
+        #return False
+        
+    else:
+        next = newer_articles[0]
+
+    for article in newer_articles:
+        if article.pubDate > next.pubDate:
+            next = article
+
+    return next.get_absolute_url()
+
+@register.filter
+def previous(current_Articel):
+    articles = getArticles()
+    older_articles = []
+
+    for article in articles:
+        if article.pubDate > current_Articel.pubDate:
+            older_articles.append(article)
+
+    if older_articles == []:
+        return ''
+        #return False
+
+    else:
+        next = older_articles[0]
+
+    for article in older_articles:
+        if article.pubDate < next.pubDate:
+            next = article
+
+    return next.get_absolute_url()

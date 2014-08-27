@@ -48,4 +48,12 @@ Article published under following Tags
 {% endfor %}
 </ul>
 
+{% if article|previous %}
+<p><a href="{{ article|previous }}">Previous</a></p>
+{% endif %}
+
+{% if article|next  %}
+<p><a href="{{ article|next }}">Next</a></p>
+{% endif %}
+
 {% endblock %}

@@ -48,6 +48,8 @@ Article published under following Tags
 {% endfor %}
 </ul>
 
+<!-- Start: next/prev -->
+
 {% next article as next %}
 {% if next %}
 <p>Next Article:<a href="{{ next.get_absolute_url}} "> {{next.title}} </a></p>
@@ -59,5 +61,19 @@ Article published under following Tags
 <p>Previous Article:<a href="{{ prev.get_absolute_url}} "> {{prev.title}} </a></p>
 
 {% endif %}
+
+<!-- End: next/prev -->
+
+<!-- Start: newest articles -->
+
+{% getNewest 3 as latestArticles %}
+
+Newest articles:
+
+{% for narticle in latestArticles %}
+    <li><a href="{{narticle.get_absolute_url}}" >{{ narticle.title }}</a></li>
+{% endfor %}
+
+<!-- End: newest articles -->
 
 {% endblock %}

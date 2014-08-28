@@ -116,3 +116,7 @@ def prev(current_Articel):
             prev = article
 
     return prev
+
+@register.assignment_tag
+def getNewest(count=1):
+    return getLatestArticles(count)

@@ -99,11 +99,13 @@ You can enable comments for each article. Enter a shortname (ex. website/company
 	var disqus_shortname = 'example'; // required: replace example with your forum shortname
     var disqus_identifier = '{{ article.slug }}';
 
-The comments will render where the div with the id="disqus_thread" is:
+The comments will render where the div with the id="disqus_thread" is located:
 
 .. code-block:: html
 
     <div id="disqus_thread"></div>
+
+The comments are controlled with the comments_enabled boolean in the article entity.
 
 Signals
 -------

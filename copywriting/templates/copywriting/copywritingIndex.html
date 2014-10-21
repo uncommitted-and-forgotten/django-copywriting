@@ -28,6 +28,7 @@ Archive
 </ul>
 
 All Tags
+
 <ul>
 {% for tag in ""|get_tags %}
     <li><a href="/blog/tag/{{ tag.name }}/">{{ tag.name }}</a></li>
@@ -45,8 +46,8 @@ All Tags
 <h4>{{ article.pubDate|date:"d.n.Y" }} 
 	
     {% for tag in article.tags.all %}
-	{% if forloop.first %}  | {% else %}, {% endif %}
-    <a href="/blog/tag/{{ tag }}/">{{ tag }}</a>
+	   {% if forloop.first %}  | {% else %}, {% endif %}
+        <a href="/blog/tag/{{ tag }}/">{{ tag }}</a>
     {% endfor %}
 	
 	

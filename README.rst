@@ -92,11 +92,18 @@ Make sure that ``'django.contrib.sitemaps'`` is in your ``INSTALLED_APPS``.
 Comments
 --------
 
-You can enable comments for each article. Enter a shortname (ex. website/company name) in the copywritingArticle template:
+You can enable comments for each article. Enter a shortname (ex. website/company name) in the copywritingArticle template. The identifier will be the slug of the article by default.:
 
 .. code-block:: html
 
 	var disqus_shortname = 'example'; // required: replace example with your forum shortname
+    var disqus_identifier = '{{ article.slug }}';
+
+The comments will render where the div with the id="disqus_thread" is:
+
+.. code-block:: html
+
+    <div id="disqus_thread"></div>
 
 Signals
 -------

@@ -16,6 +16,7 @@ Features
 * Workflow (Draft -> Review -> Ready to Publish -> Published)
 * Automatically register Articles for search if https://github.com/etianen/django-watson is installed
 * Get next/prev published article 
+* Comments powered by https://disqus.com/ 
 
 Installation
 ------------
@@ -100,9 +101,9 @@ To use comments add a shortname and a context_processor to your settings:
 	DISQUS_SHORTNAME = 'example'
 	
 	TEMPLATE_CONTEXT_PROCESSORS = (
-		#...
+		# ...
 		'copywriting.context_processors.disqus_shortname',
-
+		# ...
 	)
 
 

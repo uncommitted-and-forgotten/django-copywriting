@@ -90,6 +90,30 @@ Add the following lines to your ``urls.py``
 
 Make sure that ``'django.contrib.sitemaps'`` is in your ``INSTALLED_APPS``.
 
+Comments
+--------
+
+To use comments add a shortname and a context_processor to your settings:
+
+.. code-block:: python
+
+	DISQUS_SHORTNAME = 'example'
+	
+	TEMPLATE_CONTEXT_PROCESSORS = (
+		#...
+		'copywriting.context_processors.disqus_shortname',
+
+	)
+
+
+The comments will render where the div with the id="disqus_thread" is located:
+
+.. code-block:: html
+
+    	<div id="disqus_thread"></div>
+
+The comments are controlled with the comments_enabled boolean in the article entity.
+
 Signals
 -------
 

@@ -89,6 +89,15 @@ Add the following lines to your ``urls.py``
 
 Make sure that ``'django.contrib.sitemaps'`` is in your ``INSTALLED_APPS``.
 
+Comments
+--------
+
+You can enable comments for each article. Enter a shortname (ex. website/company name) in the copywritingArticle template:
+
+.. code-block:: html
+
+	var disqus_shortname = 'example'; // required: replace example with your forum shortname
+
 Signals
 -------
 

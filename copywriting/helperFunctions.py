@@ -75,7 +75,7 @@ def getTags():
         for tag in article.tags.all():
             tags_ids.append(tag.id)
 
-    return Tag.objects.filter(id__in=tags_ids)
+    return Tag.objects.filter(id__in=tags_ids).order_by('name')
 
 
 def getTagsByAuthor(authorModel, authorId):
@@ -90,7 +90,7 @@ def getTagsByAuthor(authorModel, authorId):
         for tag in article.tags.all():
             tags_ids.append(tag.id)
 
-    return Tag.objects.filter(id__in=tags_ids)
+    return Tag.objects.filter(id__in=tags_ids).order_by('name')
 
 
 def getYearCount():

@@ -72,7 +72,7 @@ class Article(models.Model):
     comments_enabled = models.BooleanField(default=True, help_text="Activate Comments")
 
     class Meta:
-        translate = ('title', 'content', 'seoKeyWords', 'seoDesc', )
+        translate = ('title', 'desc', 'content', 'seoKeyWords', 'seoDesc', )
 
     # def set_tags(self, tags):
     #     Tag.objects.update_tags(self, tags)

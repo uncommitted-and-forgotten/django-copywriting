@@ -9,7 +9,7 @@ from django.conf import settings
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
-from django.contrib.contenttypes import generic
+from compat import GenericForeignKey
 from django.utils.html import strip_tags 
 from django.core.urlresolvers import reverse
 # from django.contrib.comments.models import Comment
@@ -53,7 +53,7 @@ class Article(models.Model):
     desc = models.CharField('Description', max_length=250, help_text="Short desc (<250 chars)", default="")
     authorProfileModel = models.ForeignKey(ContentType)
     authorProfileId = models.PositiveIntegerField()
-    author = generic.GenericForeignKey('authorProfileModel', 'authorProfileId')
+    author = GenericForeignKey('authorProfileModel', 'authorProfileId')
     pubDate = models.DateTimeField('Date To publish the Article', default=datetime.datetime.now, help_text="specify article date")
     addedDate = models.DateTimeField('Date created', auto_now_add=True)
     updatedDate = models.DateTimeField('Date last Modified', auto_now=True)

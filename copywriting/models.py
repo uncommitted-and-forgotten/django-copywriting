@@ -65,7 +65,7 @@ class Article(models.Model):
     # Meta
     seoKeyWords = models.CharField(verbose_name='Keywords for meta tags', max_length=250, help_text="SEO: Keywords, separated with ', '", default="arteria")
     seoDesc = models.CharField(verbose_name='Desc for meta tags', max_length=250, help_text="SEO: Description, leave empty for post's description", default="arteria")
-    tags = models.ManyToManyField(Tag, blank=True, null=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     # tags = TagField(help_text="Tags, getrennt durch 'spaces' (aktuell), siehe auch https://arteria.jira.com/wiki/display/ART/Blog+Tags")
 
     # Comments
@@ -128,9 +128,15 @@ class Article(models.Model):
 
 class AuthorProfile(models.Model):
     user = models.ForeignKey(User, unique=True)
-    bio = models.TextField(help_text="Steckbrief", null=True, blank=True)
-    shortBio = models.TextField(help_text="Steckbrief (Teaser)", null=True, blank=True)
-    twitter = models.CharField(max_length=100, null=True, blank=True,
+    bio = models.TextField(help_text="Steckbrief", 
+        null=True, 
+        blank=True)
+    shortBio = models.TextField(help_text="Steckbrief (Teaser)",
+        null=True, 
+        blank=True)
+    twitter = models.CharField(max_length=100, 
+        null=True, 
+        blank=True,
         help_text="twitter benutzername ohne '@' - z.B. arteria_ch")
     linkedin = models.CharField(max_length=100, null=True, blank=True,
         help_text="link zum linkedin Profil - z.B. http://www.linkedin.com/profile/view?id=209942560")

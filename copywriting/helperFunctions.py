@@ -98,9 +98,9 @@ def getYearCount():
     Return a list of years an count of Articles for this year like:
     yearCount = [[2012, 3],[2011, 43],[2010, 74]]"""
     try:    
-        years = Article.objects.dates('pubDate', 'year')
-    except AttributeError:
         years = Article.objects.datetimes('pubDate', 'year')
+    except AttributeError:
+        years = Article.objects.dates('pubDate', 'year')
     
     yearCount = []
 

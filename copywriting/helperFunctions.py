@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
 from .models import Article, Tag
+from django.utils import timezone
 
 
 def getLatestArticlesByTag(amount=5, tagString=None):
@@ -26,7 +27,7 @@ def getArticles():
     Returns all published Articles
     """
     try:
-        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=datetime.now()).order_by('-pubDate')
+        articles = Article.objects.filter(status=Article.PUBLISHED, pubDate__lte=timezone.now()).order_by('-pubDate')
     except:
         articles = None
 

@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.contrib.contenttypes.models import ContentType
 from django.shortcuts import get_object_or_404
+from django.utils import timezone
 
 from .models import *
 
@@ -67,7 +68,7 @@ def listArticlesByYearMonthDay(request, requestYear, requestMonth, requestDay):
 def withTag(request, in_tag):
     lTag = urllib.unquote(in_tag)
     tags = Tag.objects.filter(name=lTag)
-    articles = Article.objects.filter(tags__in=tags, status=Article.PUBLISHED, pubDate__lte=datetime.datetime.now()).order_by('-pubDate')
+    articles = Article.objects.filter(tags__in=tags, status=Article.PUBLISHED, pubDate__lte=timezone.now()).order_by('-pubDate')
 
     return render_to_response("copywriting/copywritingIndex.html", {'tag': in_tag,
                                                                     'articles': articles,

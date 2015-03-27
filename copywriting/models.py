@@ -22,7 +22,8 @@ from django.dispatch import receiver
 from .signals import ready_to_publish, ready_to_review
 
 
-
+from django.utils import timezone
+ 
 class Tag(models.Model):
     name = models.CharField(max_length=200)
 
@@ -54,7 +55,7 @@ class Article(models.Model):
     authorProfileModel = models.ForeignKey(ContentType)
     authorProfileId = models.PositiveIntegerField()
     author = GenericForeignKey('authorProfileModel', 'authorProfileId')
-    pubDate = models.DateTimeField('Date To publish the Article', default=datetime.datetime.now, help_text="specify article date")
+    pubDate = models.DateTimeField('Date To publish the Article', default=timezone.now, help_text="specify article date")
     addedDate = models.DateTimeField('Date created', auto_now_add=True)
     updatedDate = models.DateTimeField('Date last Modified', auto_now=True)
 

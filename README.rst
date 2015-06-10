@@ -159,7 +159,7 @@ Known issues, TODOs and planned features
 
 * ImageBucketObject is missing! Issue #5
 * ImageCropping dependencies
-* Translation added for ``desc`` so manual migrations of the DB are required. Add the new rows and rename ``desc`` to your primary language. This would be ``desc_de`` in case you start with German.
+* Translation added for ``desc`` so manual migrations of the DB are required. Add the new rows and rename ``desc`` to your primary language. This would be ``desc_de`` in case you start with German. Migration hints can be found here: https://github.com/arteria/django-copywriting/issues/14 
 
 
 

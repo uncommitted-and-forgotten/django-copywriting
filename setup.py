@@ -38,7 +38,7 @@ dev_requires = [
 
 install_requires = [
     'django',
-    'django-compat>=1.0.2'
+    'django-compat>=1.0.6'
 #    'django-transmeta',
     # add the others... 
 ]

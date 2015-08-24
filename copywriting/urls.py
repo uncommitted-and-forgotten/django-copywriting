@@ -1,9 +1,7 @@
 from compat import patterns, url
-from .feed import blogFeed
+
 
 urlpatterns = patterns('copywriting',
-    url(r'^feed\.rss$', blogFeed()),
-    url(r'^feed/$', blogFeed()),
     url(r'^author/(?P<author>\w[^/]+)$', 'views.listArticlesByAuthor'),
     url(r'^author/(?P<author>\w[^/]+)/$', 'views.listArticlesByAuthor'),
     url(r'^tag/(?P<in_tag>\w[^/]+)$', 'views.withTag'),
@@ -14,3 +12,13 @@ urlpatterns = patterns('copywriting',
     url(r'^(?P<slug>[^\.]+)/$', 'views.showArticle'),
     url('^$', 'views.listArticles'),
 )
+
+try:
+    from .feed import blogFeed
+    urlpatterns += patterns('copywriting',
+        url(r'^feed\.rss$', blogFeed()),
+        url(r'^feed/$', blogFeed()),
+    )
+except Exeption, ex:
+    print ex
+    pass

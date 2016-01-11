@@ -8,7 +8,6 @@ def getLatestArticlesByTag(amount=5, tagString=None):
     """
     Returns the latest n (=amount) published Articles that have all tags.
     Tags is tagString exploded using ",".
-    
     """
     articles = getArticles()
     tags = []
@@ -102,14 +101,14 @@ def getYearCount():
         years = Article.objects.datetimes('pubDate', 'year')
     except AttributeError:
         years = Article.objects.dates('pubDate', 'year')
-    
+        
     yearCount = []
-
+        
     for year in years:
         year = int(year.year)
         count = getArticles().filter(pubDate__year=year).count()
         yearCount.append([year, count])
-
+        
     return sorted(yearCount, reverse=True)
 
 

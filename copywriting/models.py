@@ -128,7 +128,7 @@ class Article(models.Model):
     
 
 class AuthorProfile(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
     bio = models.TextField(help_text="Steckbrief", 
         null=True, 
         blank=True)

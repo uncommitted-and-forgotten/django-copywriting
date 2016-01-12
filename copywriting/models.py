@@ -1,29 +1,22 @@
 # -*- coding: utf-8 -*-
-import datetime
-import traceback 
-import sys
-
 from django.db import models
 from django.contrib.sitemaps import ping_google
 from django.conf import settings
+from django.core.urlresolvers import reverse
+from django.utils import timezone
 from django.utils.translation import ugettext as _
 from django.contrib.auth.models import User
 from django.contrib.contenttypes.models import ContentType
 from compat import GenericForeignKey
-from django.utils.html import strip_tags 
-from django.core.urlresolvers import reverse
-# from django.contrib.comments.models import Comment
+from django.utils.html import strip_tags
 
+from arimagebucket.models import ImageBucketObject
+from filer.fields.image import FilerImageField
 from transmeta import TransMeta
-# from tagging.models import Tag
 
-from arimagebucket.models import *
-from django.dispatch import receiver
-from .signals import ready_to_publish, ready_to_review
+from copywriting.signals import ready_to_publish, ready_to_review
 
 
-from django.utils import timezone
- 
 class Tag(models.Model):
     name = models.CharField(max_length=200)
 
@@ -60,7 +53,8 @@ class Article(models.Model):
     updatedDate = models.DateTimeField('Date last Modified', auto_now=True)
 
     # Content
-    title_image = models.ForeignKey(ImageBucketObject, help_text="Image for Facebook & Co.",  null=True, blank=True)
+    image = FilerImageField(help_text='Django-Filer image', null=True, blank=True)
+    title_image = models.ForeignKey(ImageBucketObject, help_text="Alternative ImageBucket image (deprecated)",  null=True, blank=True)
     content = models.TextField(verbose_name="Content", blank=True, null=True, help_text="Content with double rendering.", default="")
     
     # Meta
@@ -125,6 +119,18 @@ class Article(models.Model):
                 ping_google()
         except Exception:
             pass
+
+    @property
+    def get_image(self):
+        """
+        Returns the default image field. Preferably `image`, or if that is null, the ImageBucketObject's image` field,
+        or None
+        """
+        if self.image:
+            return self.image
+        if self.title_image:
+            return self.title_image.image
+        return None
     
 
 class AuthorProfile(models.Model):
@@ -135,7 +141,8 @@ class AuthorProfile(models.Model):
     shortBio = models.TextField(help_text="Steckbrief (Teaser)",
         null=True, 
         blank=True)
-    twitter = models.CharField(max_length=100, 
+    image = FilerImageField(help_text='Django-Filer image', null=True, blank=True)
+    twitter = models.CharField(max_length=100,
         null=True, 
         blank=True,
         help_text="twitter benutzername ohne '@' - z.B. arteria_ch")
@@ -162,6 +169,13 @@ class AuthorProfile(models.Model):
 
     def get_google_plus_url(self):
         return self.google_plus
+
+    @property
+    def get_image(self):
+        """
+        Returns the default image field
+        """
+        return self.image
 
 
 class Comment(models.Model):

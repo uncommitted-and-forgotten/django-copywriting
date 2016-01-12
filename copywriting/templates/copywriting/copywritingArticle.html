@@ -18,8 +18,8 @@
 {% endifequal %}
 <h1 class="header">{{ article.title }}</h1>
 
-{% if article.title_image %}
-<img src="{{ article.title_image.image.url }}">
+{% if article.get_image %}
+<img src="{{ article.get_image.url }}">
 {% endif %}
 
 <p><strong>{{ article.desc }}</strong></p>

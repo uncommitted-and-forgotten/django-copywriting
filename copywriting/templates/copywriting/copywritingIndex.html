@@ -39,8 +39,8 @@ All Tags
 {% for article in articles %}
 <a href="{{ article.get_absolute_url }}"><h2>{{ article.title }}</h2></a>
 
-{% if article.title_image %}
-<img src="{{ article.title_image.image.url }}">
+{% if article.get_image %}
+<img src="{{ article.get_image.url }}">
 {% endif %}
 
 <h4>{{ article.pubDate|date:"d.n.Y" }} 

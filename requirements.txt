@@ -1,0 +1,5 @@
+django
+django-compat>=1.0.6
+django-transmeta
+aR-ImageBucket
+django-filer

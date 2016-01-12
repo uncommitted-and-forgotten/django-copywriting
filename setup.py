@@ -36,14 +36,6 @@ dev_requires = [
     'flake8',
 ]
 
-install_requires = [
-    'django',
-    'django-compat>=1.0.6'
-#    'django-transmeta',
-    # add the others... 
-]
-
-
 def read(fname):
     try:
         return open(os.path.join(os.path.dirname(__file__), fname)).read()
@@ -63,7 +55,7 @@ setup(
     url="https://github.com/arteria/django-copywriting",
     packages=find_packages(),
     include_package_data=True,
-    install_requires=install_requires,
+    install_requires=open('requirements.txt').read().split('\n'),
     extras_require={
         'dev': dev_requires,
     },

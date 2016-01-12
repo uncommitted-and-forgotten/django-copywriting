@@ -35,13 +35,18 @@ To get the latest commit from GitHub
 
 TODO: Describe further installation steps (edit / remove the examples below):
 
-Add ``copywriting`` to your ``INSTALLED_APPS``
+Add ``copywriting`` and its dependencies to your ``INSTALLED_APPS``
 
 .. code-block:: python
 
     INSTALLED_APPS = (
         ...,
         'copywriting',
+        'transmeta',
+        'arimagebucket',
+        'filer',
+        'mptt',
+        'easy_thumbnails',
     )
 
 Add the ``copywriting`` URLs to your ``urls.py``

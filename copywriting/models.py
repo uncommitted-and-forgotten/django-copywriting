@@ -135,7 +135,6 @@ class AuthorProfile(models.Model):
     shortBio = models.TextField(help_text="Steckbrief (Teaser)",
         null=True, 
         blank=True)
-    author_image = models.ForeignKey(ImageBucketObject, help_text="Portrait image", null=True, blank=True)
     twitter = models.CharField(max_length=100, 
         null=True, 
         blank=True,

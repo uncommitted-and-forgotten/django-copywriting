@@ -92,7 +92,7 @@ class Article(models.Model):
     def get_absolute_url(self):
         """
         """
-        return reverse('copywriting.views.showArticle', None, [str(self.slug)])
+        return reverse('copywriting_article', args=[str(self.slug)])
 
 
     def save(self, force_insert=False, force_update=False):
